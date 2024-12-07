@@ -86,11 +86,11 @@ export function removeKeysFromQuery({
 }
 
 // DEBOUNCE
-export const debounce = (func: (...args: any[]) => void, delay: number) => {
+export const debounce = (func: (...args: unknown[]) => void, delay: number) => {
     let timeoutId: NodeJS.Timeout | null;
-    return (...args: any[]) => {
+    return (...args: unknown[]) => {
         if (timeoutId) clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => func.apply(null, args), delay);
+        timeoutId = setTimeout(() => func(...args), delay);
     };
 };
 
@@ -100,7 +100,7 @@ export const getImageSize = (
     type: string,
     image: any,
     dimension: "width" | "height"
-): number => {
+): number | unknown => {
     if (type === "fill") {
         return (
             aspectRatioOptions[image.aspectRatio as AspectRatioKey]?.[dimension] ||
