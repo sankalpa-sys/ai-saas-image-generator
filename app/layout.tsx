@@ -21,7 +21,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ClerkProvider afterSignOutUrl='/sign-in'
+        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY} afterSignOutUrl='/sign-in'
                        appearance={{
                            variables: {
                                colorPrimary: "#624cf5"
