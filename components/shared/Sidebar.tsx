@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import {SignedIn, SignedOut, UserButton} from "@clerk/nextjs";
+import {SignedIn, SignedOut, UserButton, SignInButton} from "@clerk/nextjs";
 import {navLinks} from "@/constants";
 import {usePathname} from "next/navigation";
 import {Button} from "@/components/ui/button";
@@ -67,10 +67,12 @@ function Sidebar() {
                         </ul>
                     </SignedIn>
                     <SignedOut>
-                        <Button asChild className='button bg-purple-gradient bg-cover'>
-                            <Link href='/sign-in'>Login</Link>
+                        <SignInButton mode="modal">
+                            <Button className='button bg-purple-gradient bg-cover'>
+                                Login
+                            </Button>
+                        </SignInButton>
 
-                        </Button>
                     </SignedOut>
                 </nav>
             </div>

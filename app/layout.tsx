@@ -21,12 +21,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY} afterSignOutUrl='/sign-in'
-                       appearance={{
-                           variables: {
-                               colorPrimary: "#624cf5"
-                           }
-                       }}>
+        <ClerkProvider
+            appearance={{
+                variables: {
+                    colorPrimary: "#624cf5"
+                }
+            }}>
             <html lang="en">
             <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
             {children}

@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import Image from "next/image";
-import {SignedIn, SignedOut, UserButton} from "@clerk/nextjs";
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,} from "@/components/ui/sheet"
 import {navLinks} from "@/constants";
 import React from "react";
@@ -73,10 +73,11 @@ function MobileNav() {
                     </Sheet>
                 </SignedIn>
                 <SignedOut>
-                    <Button asChild className='button bg-purple-gradient bg-cover'>
-                        <Link href='/sign-in'>Login</Link>
-
-                    </Button>
+                    <SignInButton mode="modal">
+                        <Button className='button bg-purple-gradient bg-cover'>
+                            Login
+                        </Button>
+                    </SignInButton>
                 </SignedOut>
             </nav>
         </header>
