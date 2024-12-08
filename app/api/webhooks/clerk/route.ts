@@ -52,10 +52,5 @@ export async function POST(req: Request) {
     console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
     console.log('Webhook payload:', body)
 
-    return new Response('Webhook received', {status: 200})
-}
-
-export async function GET() {
-    return new Response('Webhook received', {status: 200})
-    console.log('Webhook received')
+    return new Response('Webhook received in post', {status: 200})
 }
