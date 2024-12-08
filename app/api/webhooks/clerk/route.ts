@@ -1,6 +1,8 @@
 import {Webhook} from 'svix'
 import {headers} from 'next/headers'
-import {WebhookEvent} from '@clerk/nextjs/server'
+import {clerkClient, WebhookEvent} from '@clerk/nextjs/server'
+import {createUser} from "@/lib/actions/user.actions";
+import {NextResponse} from "next/server";
 
 export async function POST(req: Request) {
     const SIGNING_SECRET = process.env.WEBHOOK_SECRET
@@ -51,6 +53,31 @@ export async function POST(req: Request) {
     const eventType = evt.type
     console.log(`Received webhook with ID ${id} and event type of ${eventType}`)
     console.log('Webhook payload:', body)
+
+    if (eventType === "user.created") {
+        const {id, email_addresses, image_url, first_name, last_name, username} = evt.data;
+        const user: any = {
+            clerkId: id,
+            email: email_addresses[0]?.email_address,
+            username: username!,
+            firstName: first_name,
+            lastName: last_name,
+            photo: image_url,
+        };
+
+        const newUser = await createUser(user);
+
+        if (newUser) {
+            const client = await clerkClient()
+            await client.users.updateUserMetadata(id, {
+                publicMetadata: {
+                    userId: newUser._id,
+                },
+            });
+        }
+        return NextResponse.json({message: "OK", user: newUser});
+
+    }
 
     return new Response('Webhook received in post', {status: 200})
 }
