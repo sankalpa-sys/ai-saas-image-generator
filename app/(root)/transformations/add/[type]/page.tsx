@@ -1,6 +1,26 @@
-function AddTransformationTypePage() {
+import Header from "@/components/shared/Header";
+import {transformationTypes} from "@/constants";
+import TransformationForm from "@/components/shared/TransformationForm";
+import {auth} from "@clerk/nextjs/server";
+import {getUserById} from "@/lib/actions/user.actions";
+import {TransformationTypeKey} from "@/types";
+import {redirect} from "next/navigation";
+
+async function AddTransformationTypePage({params}: URLSearchParams) {
+    const {userId} = await auth()
+    if (!userId) {
+        redirect("/")
+    }
+    const user = await getUserById(userId)
+    const parameters = await params
+    const type = parameters.type
+    const transformation = transformationTypes[type]
     return (
-        <div></div>
+        <>
+            <Header title={transformation?.title} subtitle={transformation?.subTitle}/>
+            <TransformationForm creditBalance={user?.creditBalance} type={transformation.type as TransformationTypeKey}
+                                action="Add" userId={user._id}/>
+        </>
     );
 }
 
