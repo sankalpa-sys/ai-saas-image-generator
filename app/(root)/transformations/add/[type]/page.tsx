@@ -18,8 +18,13 @@ async function AddTransformationTypePage({params}: URLSearchParams) {
     return (
         <>
             <Header title={transformation?.title} subtitle={transformation?.subTitle}/>
-            <TransformationForm creditBalance={user?.creditBalance} type={transformation.type as TransformationTypeKey}
-                                action="Add" userId={user._id}/>
+            <section className='mt-10'>
+                <TransformationForm
+                    creditBalance={user?.creditBalance}
+                    type={transformation.type as TransformationTypeKey}
+                    action="Add"
+                    userId={user._id}/>
+            </section>
         </>
     );
 }
