@@ -6,7 +6,7 @@ import {getUserById} from "@/lib/actions/user.actions";
 import {TransformationTypeKey} from "@/types";
 import {redirect} from "next/navigation";
 
-async function AddTransformationTypePage({params}: URLSearchParams) {
+async function AddTransformationTypePage({params}) {
     const {userId} = await auth()
     if (!userId) {
         redirect("/")
