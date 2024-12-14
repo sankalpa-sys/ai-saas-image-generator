@@ -4,7 +4,12 @@ import {getAllImages} from "@/lib/actions/image.actions"
 import Image from "next/image"
 import Link from "next/link"
 
-const Home = async ({searchParams}) => {
+type TSearchParams = {
+    page?: string;
+    query?: string;
+};
+
+const Home = async ({searchParams}: TSearchParams) => {
     const params = await searchParams
     const page = Number(params?.page) || 1;
     const searchQuery = (params?.query as string) || '';
