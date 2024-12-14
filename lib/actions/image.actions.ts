@@ -19,6 +19,7 @@ const populateUser = (query: any) => query.populate({
 
 // ADD IMAGE
 export async function addImage({image, userId, path}: AddImageParams) {
+    console.log('addImage', image, userId, path)
     try {
         await connectToDatabase();
 
@@ -105,7 +106,7 @@ export async function getAllImages({limit = 9, page = 1, searchQuery = ''}: {
 
         cloudinary.config({
             cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-            api_key: process.env.CLOUDINARY_API_KEY,
+            api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
             api_secret: process.env.CLOUDINARY_API_SECRET,
             secure: true,
         })
