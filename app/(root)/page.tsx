@@ -9,7 +9,7 @@ type TSearchParams = {
     query?: string;
 };
 
-const Home = async ({searchParams}: TSearchParams) => {
+const Home = async ({searchParams}: { searchParams: Promise<TSearchParams> }) => {
     const params = await searchParams
     const page = Number(params?.page) || 1;
     const searchQuery = (params?.query as string) || '';

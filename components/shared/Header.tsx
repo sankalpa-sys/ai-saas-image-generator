@@ -1,4 +1,4 @@
-function Header({title, subtitle}: { title: string, subtitle?: string }) {
+function Header({title, subtitle}: { title: string | undefined, subtitle?: string | undefined }) {
     return (
         <div>
             <h2 className='h2-bold text-dark-600'>

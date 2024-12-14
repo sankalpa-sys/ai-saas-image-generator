@@ -19,7 +19,7 @@ function MediaUploader({
                            onValueChange, setImage, image, type, publicId
                        }: MediaUploaderProps) {
     const {toast} = useToast()
-    const onUploadErrorHandler = (error) => {
+    const onUploadErrorHandler = (error: any) => {
         toast({
             title: "Something went wrong while uploading!",
             description: error,
@@ -35,7 +35,7 @@ function MediaUploader({
                 publicId: results?.info?.public_id,
                 width: results?.info?.width,
                 height: results?.info?.height,
-                secure_url: results?.info?.secure_url
+                secureURL: results?.info?.secure_url
             }
         ))
 

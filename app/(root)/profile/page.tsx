@@ -7,7 +7,7 @@ import {getUserImages} from "@/lib/actions/image.actions";
 import {getUserById} from "@/lib/actions/user.actions";
 import {auth} from "@clerk/nextjs/server";
 
-const Profile = async ({searchParams}) => {
+const Profile = async ({searchParams}: { searchParams: Promise<{ page: number }> }) => {
     const params = await searchParams
     const page = Number(params?.page) || 1;
     const {userId} = await auth();

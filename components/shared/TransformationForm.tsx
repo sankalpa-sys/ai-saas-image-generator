@@ -52,7 +52,6 @@ const TransformationForm = ({
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isTransforming, setIsTransforming] = useState(false);
     const [transformationConfig, setTransformationConfig] = useState(config)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isPending, startTransition] = useTransition()
     const router = useRouter()
 
@@ -76,6 +75,10 @@ const TransformationForm = ({
 
         console.log('image', image)
 
+        if (!image?.publicId) {
+            throw new Error('Image publicId is required');
+        }
+
         if (data || image) {
             const transformationUrl = getCldImageUrl({
                 width: image?.width,
@@ -84,20 +87,23 @@ const TransformationForm = ({
                 ...transformationConfig
             })
 
+            if (!image.secureURL) {
+                throw new Error('Image secure_url is required');
+            }
+
             const imageData = {
                 title: values.title,
                 publicId: image?.publicId,
                 transformationType: type,
-                width: image?.width,
-                height: image?.height,
+                width: image?.width || 0, // Fallback to 0 if undefined
+                height: image?.height || 0, // Fallback to 0 if undefined
                 config: transformationConfig,
-                secureURL: image?.secure_url,
+                secureURL: image?.secureURL || '', // Fallback to empty string if undefined
                 transformationURL: transformationUrl,
                 aspectRatio: values.aspectRatio,
                 prompt: values.prompt,
                 color: values.color,
             }
-
             if (action === 'Add') {
                 try {
                     const newImage = await addImage({
@@ -121,14 +127,14 @@ const TransformationForm = ({
                     const updatedImage = await updateImage({
                         image: {
                             ...imageData,
-                            _id: data._id
+                            _id: data?._id as string
                         },
                         userId,
-                        path: `/transformations/${data._id}`
+                        path: `/transformations/${data?._id}`
                     })
 
                     if (updatedImage) {
-                        router.push(`/transformations/${updatedImage._id}`)
+                        router.push(`/transformations/${updatedImage?._id}`)
                     }
                 } catch (error) {
                     console.log(error);

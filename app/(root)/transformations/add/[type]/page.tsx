@@ -6,7 +6,13 @@ import {getUserById} from "@/lib/actions/user.actions";
 import {TransformationTypeKey} from "@/types";
 import {redirect} from "next/navigation";
 
-async function AddTransformationTypePage({params}) {
+type TSearchParams = | "restore"
+    | "fill"
+    | "remove"
+    | "recolor"
+    | "removeBackground";
+
+async function AddTransformationTypePage({params}: { params: Promise<{ type: TSearchParams }> }) {
     const {userId} = await auth()
     if (!userId) {
         redirect("/")

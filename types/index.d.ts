@@ -13,8 +13,8 @@ declare type CreateUserParams = {
 };
 
 declare type UpdateUserParams = {
-    firstName: string;
-    lastName: string;
+    firstName: string | null;
+    lastName: string | null;
     username: string;
     photo: string;
 };
@@ -25,8 +25,8 @@ declare type AddImageParams = {
         title: string;
         publicId: string;
         transformationType: string;
-        width: number;
-        height: number;
+        width: number | undefined;
+        height: number | undefined;
         config: any;
         secureURL: string;
         transformationURL: string;

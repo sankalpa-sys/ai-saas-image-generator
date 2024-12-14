@@ -7,7 +7,7 @@ import {getImageById} from "@/lib/actions/image.actions";
 import {TransformationTypeKey} from "@/types";
 import {auth} from "@clerk/nextjs/server";
 
-const Page = async ({params}) => {
+const Page = async ({params}: { params: Promise<{ id: string }> }) => {
     const {userId} = await auth();
     const parameters = await params;
 
